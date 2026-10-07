@@ -17,7 +17,7 @@ Repository = "https://github.com/lumman0/langfuse-message-dedup"
 Issues = "https://github.com/lumman0/langfuse-message-dedup/issues"
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "ruff>=0.9"]
+dev = ["pytest>=8", "ruff==0.16.10"]
 example = ["langfuse>=4.17,<5"]
 
 [tool.setuptools.packages.find]

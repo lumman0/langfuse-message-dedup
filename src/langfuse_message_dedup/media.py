@@ -11,7 +11,7 @@ from urllib.parse import quote
 
 import httpx
 
-from .codec import MediaContext, TOKEN
+from .codec import TOKEN, MediaContext
 
 
 def _url(value: str) -> str:

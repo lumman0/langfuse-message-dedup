@@ -4,8 +4,9 @@ import hashlib
 import json
 import math
 import re
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Any, Iterable, Protocol
+from typing import Any, Protocol
 
 MARKER = "$lf_message_dedup"
 Path = tuple[str | int, ...]
@@ -52,9 +53,13 @@ def _validate(value: Any, *, allow_refs: bool = False) -> None:
 
 def _get(payload: Any, path: Path) -> Any:
     for part in path:
-        if isinstance(payload, list) and type(part) is int and 0 <= part < len(payload):
-            payload = payload[part]
-        elif isinstance(payload, dict) and type(part) is str:
+        if (
+            isinstance(payload, list)
+            and type(part) is int
+            and 0 <= part < len(payload)
+            or isinstance(payload, dict)
+            and type(part) is str
+        ):
             payload = payload[part]
         else:
             raise ValueError("Path does not address a JSON value")
@@ -173,7 +178,7 @@ class MessageDeduplicator:
                     continue
                 result = _set(result, path, ref)
                 count += 1
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - store failures must preserve inline content
                 # Do not include HTTP exception text, signed URLs, keys or content.
                 failures.append(EncodeFailure(path, type(exc).__name__))
         return EncodeResult(result, count, tuple(failures))
@@ -215,7 +220,7 @@ class MessageDeduplicator:
                 restored = json.loads(data)
                 _validate(restored)
                 result = _set(result, path, restored)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - normalize store errors without leaking signed URLs
                 raise RestoreError(
                     f"Cannot restore selected content ({type(exc).__name__})"
                 ) from None

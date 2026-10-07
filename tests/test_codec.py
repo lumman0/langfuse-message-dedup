@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from langfuse_message_dedup import MessageDeduplicator, MediaContext, RestoreError
+from langfuse_message_dedup import MediaContext, MessageDeduplicator, RestoreError
 
 
 class MemoryStore:

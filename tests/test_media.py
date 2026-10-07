@@ -116,9 +116,8 @@ def test_download_limit_and_metadata_are_checked():
     server = MediaServer()
     with store_for(server) as store:
         token = store.put(b'"1234567890"', MediaContext("trace-a"))
-    with store_for(server, max_blob_bytes=5) as small:
-        with pytest.raises(ValueError):
-            small.get(token)
+    with store_for(server, max_blob_bytes=5) as small, pytest.raises(ValueError):
+        small.get(token)
 
 
 def test_invalid_token_is_rejected_before_network():
@@ -144,13 +143,15 @@ def test_bounded_stream_even_if_server_understates_size():
         return httpx.Response(200, content=b"x" * 100)
 
     transport = httpx.MockTransport(handle)
-    with LangfuseMediaStore(
-        base_url="https://langfuse.test",
-        public_key="pk",
-        secret_key="sk",
-        api_transport=transport,
-        blob_transport=transport,
-        max_blob_bytes=10,
-    ) as store:
-        with pytest.raises(ValueError):
-            store.get("@@@langfuseMedia:type=application/json|id=test|source=bytes@@@")
+    with (
+        LangfuseMediaStore(
+            base_url="https://langfuse.test",
+            public_key="pk",
+            secret_key="sk",
+            api_transport=transport,
+            blob_transport=transport,
+            max_blob_bytes=10,
+        ) as store,
+        pytest.raises(ValueError),
+    ):
+        store.get("@@@langfuseMedia:type=application/json|id=test|source=bytes@@@")

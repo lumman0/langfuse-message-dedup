@@ -1,8 +1,8 @@
 from .codec import (
     EncodeFailure,
     EncodeResult,
-    MessageDeduplicator,
     MediaContext,
+    MessageDeduplicator,
     RestoreError,
 )
 from .media import LangfuseMediaStore
@@ -10,8 +10,8 @@ from .media import LangfuseMediaStore
 __all__ = [
     "EncodeFailure",
     "EncodeResult",
-    "MessageDeduplicator",
-    "MediaContext",
-    "RestoreError",
     "LangfuseMediaStore",
+    "MediaContext",
+    "MessageDeduplicator",
+    "RestoreError",
 ]
