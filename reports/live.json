@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "run_id": "473a0ca10169",
+  "real_server": "http://localhost:3000",
+  "observations_restored": 6,
+  "unique_blobs": 13,
+  "blob_puts": 13,
+  "original_json_bytes": 413278,
+  "reference_json_bytes": 10281,
+  "downloaded_unique_blob_bytes": 127537,
+  "logical_byte_saving_fraction": 0.666524712179211,
+  "write_seconds_per_turn": [
+    4.1511295000018436,
+    0.07417740000164486,
+    0.08031539999865345,
+    0.09004909999930533,
+    0.17007750000266242,
+    0.11610210000071675
+  ],
+  "http_requests": {
+    "api_POST": 43,
+    "blob_PUT": 13,
+    "api_PATCH": 13,
+    "api_GET": 105,
+    "blob_GET": 104
+  },
+  "duration_seconds": 14.205207099999825,
+  "checks": [
+    "persisted OTLP input/output round trip",
+    "edited history independent",
+    "new client reuses content",
+    "upload unavailable falls back inline",
+    "missing media raises",
+    "downloaded content SHA256 verified"
+  ],
+  "trace_ids": [
+    "c250ea0f55e6afcf113231f339df3c22",
+    "11e0c981a8ae563370b42431432ddc5c",
+    "752a1956d1bd50f90359eb14951291d7",
+    "8c64c05e637884f39efdbb9fd6338d84",
+    "f85d3508b9657779d7a872ee9dd6580a",
+    "d0d1046a956a67502f5f6b3e1e3c69f2"
+  ],
+  "limits": "Logical JSON plus actual downloaded blob bytes only; excludes ClickHouse compression, Postgres associations/indexes/WAL, storage allocation, request billing and orphan cleanup. Not a total disk/cost saving claim."
+}

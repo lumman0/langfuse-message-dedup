@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "langfuse-message-dedup"
+version = "0.1.0.dev0"
+description = "Experimental opt-in message content deduplication using Langfuse media"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = ["httpx>=0.27,<1"]
+
+[project.urls]
+Repository = "https://github.com/lumman0/langfuse-message-dedup"
+Issues = "https://github.com/lumman0/langfuse-message-dedup/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.9"]
+example = ["langfuse>=4.17,<5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py310"
